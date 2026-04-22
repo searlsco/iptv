@@ -5,7 +5,7 @@ served directly from the copyright holder's own infrastructure and offered
 to the public free of charge. Intended as a safe built-in default for
 generic IPTV players (in particular, [ColdOpen](https://github.com/searls/cold_open)).
 
-Published at **https://coldopen.dev/channels.m3u** (GitHub Pages).
+Published at **https://iptv.coldopen.dev/channels.m3u** (GitHub Pages).
 
 ## Inclusion criteria
 
