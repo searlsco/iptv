@@ -3,7 +3,7 @@
 A small, hand-curated M3U playlist of live TV channels whose streams are
 served directly from the copyright holder's own infrastructure and offered
 to the public free of charge. Intended as a safe built-in default for
-generic IPTV players (in particular, [ColdOpen](https://github.com/searls/cold_open)).
+generic IPTV players (in particular, [ColdOpen](https://coldopen.dev)).
 
 Published at **https://iptv.coldopen.dev/channels.m3u** (GitHub Pages).
 
