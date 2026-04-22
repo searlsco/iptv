@@ -12,14 +12,20 @@ Published at **https://iptv.coldopen.dev/channels.m3u** (GitHub Pages).
 An entry is included **only** when all of the following are true:
 
 1. The stream URL's hostname is operated by the channel's own publisher
-   (or an Akamai / CloudFront / PBS subdomain clearly branded as theirs).
-   No third-party resellers, scrapers, URL shorteners, raw-IP origins, or
-   re-encoders.
+   on a subdomain clearly branded to them (e.g. `live.france24.com`,
+   `dwamdstream*.akamaized.net`). No generic shared Akamai / CloudFront
+   edges, third-party resellers, scrapers, URL shorteners, raw-IP
+   origins, or re-encoders.
 2. The publisher openly distributes this feed for free public viewing on
    their own website or OTT product (linked in the provenance column
    below).
 3. The stream is live-linear (continuous), not on-demand, and not locked
    behind DRM, subscription, or signed/expiring URLs.
+4. Redistribution is authorized by the copyright holder. Hosts that
+   merely *carry* a feed under a B2B distribution agreement (e.g. NHK
+   World carried by PBS Distribution in the US, local OTA affiliates
+   carried on PBS's national CDN) are excluded — the CDN holding the
+   bits does not grant third-party redistribution rights.
 
 Geographic restrictions enforced by the publisher (e.g. `[Geo-blocked]`)
 are preserved as-is; the publisher's own geo-fence is what makes the
@@ -27,20 +33,22 @@ stream legitimate in its licensed territories.
 
 ## What's excluded, on purpose
 
-- Local OTA network affiliates (Nexstar, Gray, Scripps, etc.) — the
-  over-the-air carriage rights do not include internet streaming.
+- Local OTA network affiliates (Nexstar, Gray, Scripps, PBS member
+  stations, etc.) — OTA carriage rights do not include internet
+  streaming by a third-party app.
 - FAST-only channels served through third-party ad-platforms
   (Wurl, Amagi Tubi, Samsung TV Plus, Pluto TV, etc.) unless the
   publisher themselves officially distributes that feed to those
   platforms.
 - State-media propaganda outlets (CGTN, RT) — technically free but
   a poor fit for a general-audience default list.
-- Anything from iptv-org's list whose URL could not be traced to the
-  publisher's own infrastructure.
+- Feeds served from shared / generic Akamai edges (e.g.
+  `*.edgesuite.net`) where the hostname is not branded to the
+  publisher.
 
 ## Channels
 
-_111 channels across 20 publishers. Last verified: 2026-04-22._
+_99 channels across 15 publishers. Last verified: 2026-04-22._
 
 | Channel | Publisher | Provenance |
 |---|---|---|
@@ -60,8 +68,6 @@ _111 channels across 20 publishers. Last verified: 2026-04-22._
 | Al Jazeera Mubasher (1080p) | Al Jazeera Media Network | [link](https://www.aljazeera.com/live/) |
 | Al Jazeera Mubasher 24 (1080p) | Al Jazeera Media Network | [link](https://www.aljazeera.com/live/) |
 | Al Jazeera Mubasher Broadcast 2 (1080p) | Al Jazeera Media Network | [link](https://www.aljazeera.com/live/) |
-| Arirang Radio (720p) | Arirang TV & Radio | [link](https://www.arirang.com/tv/LiveTV.asp) |
-| Arirang TV (1080p) | Arirang TV & Radio | [link](https://www.arirang.com/tv/LiveTV.asp) |
 | Bloomberg Originals (1080p) | Bloomberg L.P. | [link](https://www.bloomberg.com/live) |
 | Bloomberg TV Asia (720p) | Bloomberg L.P. | [link](https://www.bloomberg.com/live) |
 | Bloomberg TV Asia Live Event (720p) | Bloomberg L.P. | [link](https://www.bloomberg.com/live) |
@@ -92,19 +98,9 @@ _111 channels across 20 publishers. Last verified: 2026-04-22._
 | France 24 French (1080p) | France Médias Monde | [link](https://www.france24.com/en/live) |
 | CNA International (1080p) | Mediacorp (Singapore) | [link](https://www.mewatch.sg/watch/channels) |
 | NHK Kishou Saigai (360p) [Not 24/7] | NHK (Nippon Hōsō Kyōkai) | [link](https://www3.nhk.or.jp/news/) |
-| NHK World-Japan HD (1080p) [Geo-blocked] | NHK World-Japan (via PBS Distribution) | [link](https://www3.nhk.or.jp/nhkworld/) |
-| PBS National East (1080p) [Geo-blocked] | PBS | [link](https://www.pbs.org/livestream/) |
-| PBS Sedalia British Columbia MO (KMOS) (1080p) [Geo-blocked] | PBS | [link](https://www.pbs.org/livestream/) |
-| Arkansas PBS [Geo-blocked] | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
 | Create (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
 | FNX (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| KQED-DT2 (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| KVIE-DT2 (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| PBS Honolulu HI (KHET) (1080p) [Not 24/7] | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| PBS Lincoln NE (KUON) (1080p) [Geo-blocked] | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| PBS New Jersey NJ (WNJT) (1080p) [Not 24/7] | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| WEDQ-DT4 (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
-| WGTV-DT3 (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
+| PBS National East (1080p) [Geo-blocked] | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
 | World Channel (1080p) | PBS (Public Broadcasting Service) | [link](https://www.pbs.org/livestream/) |
 | Canal 24 Horas (720p) | RTVE (Corporación Radio y Televisión Española) | [link](https://www.rtve.es/play/videos/directo/) |
 | Canal 24 Horas Canarias (720p) | RTVE (Corporación Radio y Televisión Española) | [link](https://www.rtve.es/play/videos/directo/) |
@@ -124,14 +120,14 @@ _111 channels across 20 publishers. Last verified: 2026-04-22._
 | TVE Star (576p) | RTVE (Corporación Radio y Televisión Española) | [link](https://www.rtve.es/play/videos/directo/) |
 | TVE Star HD (1080p) | RTVE (Corporación Radio y Televisión Española) | [link](https://www.rtve.es/play/videos/directo/) |
 | Teledeporte (720p) [Geo-blocked] | RTVE (Corporación Radio y Televisión Española) | [link](https://www.rtve.es/play/videos/directo/) |
-| Rai 4 (576p) | Rai | [link](https://www.raiplay.it/dirette) |
 | Rai 2 (576p) [Geo-blocked] | Rai (Radiotelevisione italiana) | [link](https://www.raiplay.it/dirette) |
+| Rai 4 (576p) | Rai (Radiotelevisione italiana) | [link](https://www.raiplay.it/dirette) |
 | Rai Movie (576p) [Geo-blocked] | Rai (Radiotelevisione italiana) | [link](https://www.raiplay.it/dirette) |
 | Rai Premium (576p) [Geo-blocked] | Rai (Radiotelevisione italiana) | [link](https://www.raiplay.it/dirette) |
 | Rai Storia (576p) [Geo-blocked] | Rai (Radiotelevisione italiana) | [link](https://www.raiplay.it/dirette) |
 | Red Bull TV (1080p) | Red Bull Media House | [link](https://www.redbull.tv/) |
-| TRT 3 (720p) | TRT | [link](https://www.trtizle.com/canli) |
 | TRT 1 (1080p) | TRT (Türkiye Radyo ve Televizyon Kurumu) | [link](https://www.trtizle.com/canli) |
+| TRT 3 (720p) | TRT (Türkiye Radyo ve Televizyon Kurumu) | [link](https://www.trtizle.com/canli) |
 | TRT Arabi (1080p) [Not 24/7] | TRT (Türkiye Radyo ve Televizyon Kurumu) | [link](https://www.trtizle.com/canli) |
 | TRT Avaz (720p) | TRT (Türkiye Radyo ve Televizyon Kurumu) | [link](https://www.trtizle.com/canli) |
 | TRT Belgesel (720p) | TRT (Türkiye Radyo ve Televizyon Kurumu) | [link](https://www.trtizle.com/canli) |
@@ -160,8 +156,8 @@ _111 channels across 20 publishers. Last verified: 2026-04-22._
 
 The initial list of channel URLs was sourced from
 [iptv-org/iptv](https://github.com/iptv-org/iptv) (Unlicense) and then
-filtered by publisher-operated hostname. Only streams meeting the
-inclusion criteria above were carried over.
+aggressively filtered by publisher-operated hostname and the inclusion
+rules above. Only streams meeting those criteria were carried over.
 
 ## Reporting a problem
 
