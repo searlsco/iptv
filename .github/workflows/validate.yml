@@ -1,0 +1,66 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 12 * * 1"  # weekly Monday noon UTC
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse playlist
+        run: |
+          python3 - <<'PY'
+          import sys, re
+          lines = open("channels.m3u").read().splitlines()
+          if not lines or lines[0] != "#EXTM3U":
+              sys.exit("missing #EXTM3U header")
+          i = 1
+          n = 0
+          while i < len(lines):
+              line = lines[i]
+              if not line.startswith("#EXTINF:"):
+                  sys.exit(f"line {i+1}: expected #EXTINF, got {line[:60]!r}")
+              if not re.match(r'#EXTINF:-1\s.*,.+', line):
+                  sys.exit(f"line {i+1}: malformed EXTINF: {line[:80]!r}")
+              i += 1
+              while i < len(lines) and lines[i].startswith("#EXTVLCOPT"):
+                  i += 1
+              if i >= len(lines) or not lines[i].startswith(("http://","https://")):
+                  sys.exit(f"line {i+1}: expected URL, got {lines[i][:60]!r}")
+              i += 1
+              n += 1
+          print(f"OK: {n} entries parsed")
+          PY
+
+      - name: Resolve stream URLs
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          from concurrent.futures import ThreadPoolExecutor
+          urls = [l for l in open("channels.m3u").read().splitlines()
+                  if l.startswith(("http://","https://"))]
+          def check(u):
+              r = subprocess.run(
+                  ["curl","-sS","-o","/dev/null","-w","%{http_code}","-L",
+                   "--max-time","15","-A","Mozilla/5.0", u],
+                  capture_output=True, text=True)
+              return (u, r.stdout.strip() or "ERR")
+          with ThreadPoolExecutor(max_workers=16) as ex:
+              results = list(ex.map(check, urls))
+          # 403 is acceptable: publisher geo-fencing from GitHub Actions runners
+          # (usually US/eu). Only fail on DNS/conn errors or 4xx other than 403,
+          # and 5xx.
+          bad = [(u,c) for u,c in results
+                 if not (c.startswith(("2","3")) or c == "403")]
+          for u,c in bad:
+              print(f"FAIL {c}  {u}")
+          print(f"OK: {len(results)-len(bad)}  FAIL: {len(bad)}")
+          if bad: raise SystemExit(1)
+          PY
